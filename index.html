@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiper Demo</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <div class="flex items-center flex-shrink-0 text-white mr-6 lg:mr-0 lg:mr-4">
+        <img src="res/logo.png" alt="Logo" class="h-8 w-auto">
+    </div>
+    <div class="block lg:hidden ml-auto">
+        <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+    </div>
+    <div id="nav-content" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden lg:ml-auto lg:justify-end">
+        <div class="text-sm">
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                Home
+            </a>
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                About
+            </a>
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                Pricing
+            </a>
+            <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">
+                Contact
+            </a>
+        </div>
+    </div>
+</nav>
+<body class="font-sans">
+    <!-- Other body elements -->
+    <div id="slide-content" class="text-center mt-20 text-white font-robotoSlab">
+        <h2 id="slide-heading" class="text-4xl font-bold mb-4">Heading 1</h2>
+        <p id="slide-text" class="text-xl">Content for slide 1</p>
+    </div>
+</body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="res/image1.jpeg" alt="Image 1"></div>
+        <div class="swiper-slide"><img src="res/image2.jpeg" alt="Image 2"></div>
+        <div class="swiper-slide"><img src="res/image3.jpeg" alt="Image 3"></div>
+        <div class="swiper-slide"><img src="res/image3.png" alt="Image 4"></div>
+        <div class="swiper-slide"><img src="res/image4.png" alt="Image 5"></div>
+        <div class="swiper-slide"><img src="res/image5.png" alt="Image 6"></div>
+        <div class="swiper-slide"><img src="res/image6.png" alt="Image 7"></div>
+        <div class="swiper-slide"><img src="res/image7.png" alt="Image 8"></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        swiper = new Swiper('.swiper-container', {
+    slidesPerView: 3,
+    centeredSlides: true,
+    spaceBetween: 30,
+    loop: true,
+    mousewheel: true,
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+
+var headings = ['Naruto: The Last Leaf',"One Piece: Captain's Resolve", 'Escape from Planet Earth', 'Planet of Wonders','Pokemon Cosmic Quest: The Nebula Nexus', 'Mech Wars: Steel Storm','Death Reaper', 'Eternal Dusk'];
+    var texts = ['Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, suscipit.'];
+
+    
+        swiper.on('slideChange', function () {
+            var allImages = document.querySelectorAll('.swiper-slide img');
+            allImages.forEach(function(img) {
+                img.style.opacity = 0.5;
+            });
+
+            var currentSlide = swiper.slides[swiper.activeIndex];
+            var imageElement = currentSlide.querySelector('img');
+            imageElement.style.opacity = 1;
+
+            var imageUrl = imageElement.src;
+            document.body.style.backgroundImage = 'url(' + imageUrl + ')';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+
+            var activeIndex = swiper.realIndex;
+            document.getElementById('slide-heading').textContent = headings[activeIndex];
+            document.getElementById('slide-text').textContent = texts[activeIndex];
+        });
+        
+
+        window.onload = function() {
+            swiper.emit('slideChange');
+        }
+
+        
+
+    </script>
+    <script>
+    window.onload = function() {
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            document.getElementById('nav-content').classList.toggle('hidden');
+        });
+    }
+    </script>
+
+</body>
+</html>
